@@ -79,7 +79,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         from src.todoList import put_item
         # Table mock
-        self.assertRaises('Se produjo un error', put_item('', self.dynamodb))
+        self.assertRaises(Exception, put_item('', self.dynamodb))
         print ('End: test_put_todo_error')
 
     def test_get_todo(self):
@@ -198,6 +198,17 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
+    
+    def test_get_table(self):
+        print ('Start: test_get_table')
+        print('Table name:' + self.table.name)
+        tableName = os.environ['DYNAMODB_TABLE'];
+        print('Table name from env:' + tableName)
+        self.assertIn(tableName, self.table.name)
+        from src.todoList import get_table
+        table = get_table('')
+        print (table.name)
+        print ('End: test_get_table')
 
 
 
