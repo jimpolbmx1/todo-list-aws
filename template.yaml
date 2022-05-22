@@ -40,19 +40,6 @@ Resources:
           Properties:
             Path: /todos
             Method: post
-  GetTranslateFunction:
-    Type: AWS::Serverless::Function 
-    Properties:
-      CodeUri: src/
-      Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
-      Handler: getnew.getnew
-      Runtime: python3.7
-      Events:
-        Create:
-          Type: Api
-          Properties:
-            Path: /todos
-            Method: get
   ListTodosFunction:
     Type: AWS::Serverless::Function 
     Properties:
