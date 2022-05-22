@@ -45,7 +45,7 @@ Resources:
     Properties:
       CodeUri: src/
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
-      Handler: get.get
+      Handler: getnew.getnew
       Runtime: python3.7
       Events:
         Create:
