@@ -3,7 +3,7 @@ import decimalencoder
 import todoList
 
 
-def get(event, context):
+def getnew(event, context):
     # create a response
     item = todoList.get_item(event['pathParameters']['id'])
     if item:
