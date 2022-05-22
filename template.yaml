@@ -103,7 +103,7 @@ Resources:
         Create:
           Type: Api
           Properties:
-            Path: /todos/{leng}/{id}/
+            Path: /todos/len/{id}/{leng}
             Method: get
       
   TodosDynamoDbTable:
