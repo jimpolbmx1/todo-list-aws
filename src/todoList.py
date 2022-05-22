@@ -66,7 +66,7 @@ def put_item(text, dynamodb=None):
             "body": json.dumps(item)
         }
     else:
-        print ('Se produjo un error')
+        print('Se produjo un error')
         response = 'Se ha producido un error'
     return response
 
