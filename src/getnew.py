@@ -18,4 +18,3 @@ def getnew(event, context):
             "body": ""
         }
     return response
-    
