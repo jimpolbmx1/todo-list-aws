@@ -206,7 +206,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print('Table name from env:' + tableName)
         self.assertIn(tableName, self.table.name)
         from src.todoList import get_table
-        table = get_table('')
+        table = get_table(self.dynamodb)
         print (table.name)
         print ('End: test_get_table')
 
