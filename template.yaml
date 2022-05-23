@@ -103,7 +103,7 @@ Resources:
         Create:
           Type: Api
           Properties:
-            Path: /todos/len/{id}/{leng}
+            Path: /todos/len/{id}/{lg}
             Method: get
       
   TodosDynamoDbTable:
@@ -139,7 +139,7 @@ Outputs:
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/{id}"
   GetTranslateApi:
     Description: "API Gateway endpoint URL for ${opt:stage} stage for Get Translate"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/len/{id}/{leng}"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/len/{id}/{lg}"
   UpdateTodoApi:
     Description: "API Gateway endpoint URL for ${opt:stage} stage for Update TODO"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/{id}"

@@ -1,20 +1,41 @@
 import json
 import decimalencoder
 import todoList
+import os
+import boto3
+
+dynamodb = boto3.resource('dynamodb')
+translate = boto3.client('translate')
 
 
 def getnew(event, context):
     # create a response
-    item = todoList.get_item(event['pathParameters']['id'])
-    if item:
-        response = {
-            "statusCode": 200,
-            "body": json.dumps(item,
-                               cls=decimalencoder.DecimalEncoder)
+    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+     # fetch todo from the database
+    result = table.get_item(
+        Key={
+            'id': event['pathParameters']['id']
         }
+    )
+    source = 'auto'
+    if event['pathParameters']['lg'] == 'en':
+        target = 'en'
+    elif event['pathParameters']['lg'] == 'fr':
+        target = 'fr'
     else:
-        response = {
-            "statusCode": 404,
-            "body": ""
-        }
+        target = 'auto'
+    finalresult = translate.translate_text(Text = result['Item']['text'], SourceLanguageCode=source, TargetLanguageCode=target)
+    
+    print (finalresult)
+
+    result['Item']["text"] = finalresult.get('TranslatedText')
+
+    #create a response
+    response = {
+        "statusCode": 200,
+        "body": json.dumps(result['Item'],
+                           cls=decimalencoder.DecimalEncoder)
+    }
+
     return response
+
