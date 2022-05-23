@@ -44,18 +44,6 @@ def get_items(dynamodb=None):
     result = table.scan()
     return result['Items']
 
-def get_translate(key, leng, dynamodb=None): 
-    table = get_table(dynamodb) 
-    # fetch todo from the database
-    result = table.get_item(
-            Key={
-                'id': key
-            }
-        )
-    print(leng)
-    return result['Item']
-
-
 def put_item(text, dynamodb=None):
     table = get_table(dynamodb)
     timestamp = str(time.time())
@@ -152,8 +140,8 @@ def create_todo_table(dynamodb):
     )
 
     # Wait until the table exists.
-    table.meta.client.get_waiter('table_exists').wait(TableName=tableName) #Exclude for test
-    if (table.table_status != 'ACTIVE'): #Exclude for test
-        raise AssertionError() # Program: no cover
+    table.meta.client.get_waiter('table_exists').wait(TableName=tableName)
+    if (table.table_status != 'ACTIVE'):
+        raise AssertionError()
 
     return table
