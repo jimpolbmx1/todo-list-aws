@@ -9,7 +9,8 @@ translate = boto3.client('translate')
 
 def getnew(event, context):
     # create a response
-    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])# fetch todo from the database
+    table = dynamodb.Table(
+                            os.environ['DYNAMODB_TABLE'])
     result = table.get_item(
         Key={
             'id': event['pathParameters']['id']
@@ -22,10 +23,10 @@ def getnew(event, context):
         target = 'fr'
     else:
         target = 'auto'
-    finalresult = translate.translate_text(Text = result['Item']['text'], SourceLanguageCode=source, TargetLanguageCode=target)
+    finalresult = translate.translate_text(Text = result['Item']['text'], 
+                                            SourceLanguageCode=source, TargetLanguageCode=target)
     print(finalresult)
     result['Item']["text"] = finalresult.get('TranslatedText')
-    #create a response
     response = {
         "statusCode": 200,
         "body": json.dumps(result['Item'],
