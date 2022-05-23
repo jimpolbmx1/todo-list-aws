@@ -20,7 +20,7 @@ def getnew(event, context):
     if event['pathParameters']['lg'] != '':
         target = event['pathParameters']['lg']
     else:
-        target = 'auto'
+        target = 'en'
     finalresult = translate.translate_text(Text=result['Item']['text'],
                                            SourceLanguageCode=source,
                                            TargetLanguageCode=target)
