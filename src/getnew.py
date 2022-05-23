@@ -1,6 +1,5 @@
 import json
 import decimalencoder
-import todoList
 import os
 import boto3
 
@@ -10,8 +9,7 @@ translate = boto3.client('translate')
 
 def getnew(event, context):
     # create a response
-    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
-     # fetch todo from the database
+    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])# fetch todo from the database
     result = table.get_item(
         Key={
             'id': event['pathParameters']['id']
@@ -25,17 +23,13 @@ def getnew(event, context):
     else:
         target = 'auto'
     finalresult = translate.translate_text(Text = result['Item']['text'], SourceLanguageCode=source, TargetLanguageCode=target)
-    
-    print (finalresult)
-
+    print(finalresult)
     result['Item']["text"] = finalresult.get('TranslatedText')
-
     #create a response
     response = {
         "statusCode": 200,
         "body": json.dumps(result['Item'],
                            cls=decimalencoder.DecimalEncoder)
     }
-
     return response
 
