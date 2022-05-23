@@ -44,6 +44,7 @@ def get_items(dynamodb=None):
     result = table.scan()
     return result['Items']
 
+
 def put_item(text, dynamodb=None):
     table = get_table(dynamodb)
     timestamp = str(time.time())

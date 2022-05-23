@@ -23,8 +23,9 @@ def getnew(event, context):
         target = 'fr'
     else:
         target = 'auto'
-    finalresult = translate.translate_text(Text = result['Item']['text'], 
-                                            SourceLanguageCode=source, TargetLanguageCode=target)
+    finalresult = translate.translate_text(Text=result['Item']['text'],
+                                        SourceLanguageCode=source, 
+                                        TargetLanguageCode=target)
     print(finalresult)
     result['Item']["text"] = finalresult.get('TranslatedText')
     response = {
@@ -33,4 +34,3 @@ def getnew(event, context):
                            cls=decimalencoder.DecimalEncoder)
     }
     return response
-
