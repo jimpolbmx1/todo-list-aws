@@ -17,12 +17,10 @@ def getnew(event, context):
         }
     )
     source = 'auto'
-    if event['pathParameters']['lg'] == 'en':
-        target = 'en'
-    elif event['pathParameters']['lg'] == 'fr':
-        target = 'fr'
-    else:
+    if event['pathParameters']['lg'] != '':
         target = event['pathParameters']['lg']
+    else:
+        target = 'auto'
     finalresult = translate.translate_text(Text=result['Item']['text'],
                                            SourceLanguageCode=source,
                                            TargetLanguageCode=target)
