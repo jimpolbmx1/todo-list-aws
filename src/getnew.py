@@ -28,7 +28,7 @@ def getnew(event, context):
     result['Item']["text"] = valortraduc.get('TranslatedText')
     response = {
         "statusCode": 200,
-        "body": json.dumps(result['Item']["text"],
+        "body": json.dumps(result['Item'],
                            cls=decimalencoder.DecimalEncoder)
     }
     return response
