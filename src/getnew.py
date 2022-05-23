@@ -20,15 +20,15 @@ def getnew(event, context):
     if event['pathParameters']['lg'] != '':
         target = event['pathParameters']['lg']
     else:
-        target = 'en'
-    finalresult = translate.translate_text(Text=result['Item']['text'],
+        raise Exception
+    valortraduc = translate.translate_text(Text=result['Item']['text'],
                                            SourceLanguageCode=source,
                                            TargetLanguageCode=target)
-    print(finalresult)
-    result['Item']["text"] = finalresult.get('TranslatedText')
+    print(valortraduc)
+    result['Item']["text"] = valortraduc.get('TranslatedText')
     response = {
         "statusCode": 200,
-        "body": json.dumps(result['Item'],
+        "body": json.dumps(result['Item']["text"],
                            cls=decimalencoder.DecimalEncoder)
     }
     return response
