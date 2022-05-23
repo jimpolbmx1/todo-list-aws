@@ -1,4 +1,5 @@
 # from pprint import pprint
+# coding=utf-8
 import warnings
 import unittest
 import boto3
