@@ -139,7 +139,7 @@ Outputs:
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/{id}"
   GetTranslateApi:
     Description: "API Gateway endpoint URL for ${opt:stage} stage for Get Translate"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/len/{id}/{lg}"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/{id}/{lg}"
   UpdateTodoApi:
     Description: "API Gateway endpoint URL for ${opt:stage} stage for Update TODO"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/{id}"
