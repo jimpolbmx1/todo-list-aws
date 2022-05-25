@@ -4,7 +4,8 @@ import os
 import boto3
 
 dynamodb = boto3.resource('dynamodb')
-translate = boto3.client(service_name='translate', region_name='us-east-1', use_ssl=True)
+translate = boto3.client(service_name='translate', 
+                         region_name='us-east-1', use_ssl=True)
 
 
 def getnew(event, context):
