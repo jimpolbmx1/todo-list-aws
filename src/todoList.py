@@ -9,6 +9,7 @@ from botocore.exceptions import ClientError
 translate = boto3.client(service_name='translate',
                          region_name='us-east-1', use_ssl=True)
 
+
 def get_table(dynamodb=None):
     if not dynamodb:
         URL = os.environ['ENDPOINT_OVERRIDE']
