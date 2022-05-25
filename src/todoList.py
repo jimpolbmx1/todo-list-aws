@@ -18,6 +18,8 @@ def get_table(dynamodb=None):
         dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
     # fetch todo from the database
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+    translate = boto3.client(service_name='translate',
+                         region_name='us-east-1', use_ssl=True)
     return table
 
 
@@ -29,13 +31,37 @@ def get_item(key, dynamodb=None):
                 'id': key
             }
         )
-
+    
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
         print('Result getItem:'+str(result))
         if 'Item' in result:
             return result['Item']
+
+
+def get_translate(key, lg, dynamodb=None):
+    table = get_table(dynamodb)
+    translate = boto3.client(service_name='translate',
+                             region_name='us-east-1', use_ssl=True)
+    result = table.get_item(
+        Key={
+            'id': key
+        }
+    )
+    source = 'auto'
+    if lg != '':
+        target = lg
+    else:
+        raise Exception
+    valortraduc = translate.translate_text(Text=result['Item']['text'],
+                                           SourceLanguageCode=source,
+                                           TargetLanguageCode=target)
+    print(valortraduc)
+    result['Item']["text"] = valortraduc.get('TranslatedText')
+    return result['Item']
+
+
 
 
 def get_items(dynamodb=None):
