@@ -18,8 +18,6 @@ def get_table(dynamodb=None):
         dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
     # fetch todo from the database
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
-    translate = boto3.client(service_name='translate',
-                         region_name='us-east-1', use_ssl=True)
     return table
 
 
