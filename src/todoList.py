@@ -40,7 +40,7 @@ def get_item(key, dynamodb=None):
 
 def get_translate(key, lg, dynamodb=None):
     table = get_table(dynamodb)
-    translate = boto3.client('translate')
+    translate = boto3.client('translate', region_name='us-east-1')
     result = table.get_item(
         Key={
             'id': key
