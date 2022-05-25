@@ -7,7 +7,8 @@ import functools
 from botocore.exceptions import ClientError
 
 translate = boto3.client(service_name='translate',
-                         region_name='us-east-1', use_ssl=True)
+                         region_name='us-east-1',
+                         use_ssl=True)
 
 
 def get_table(dynamodb=None):
