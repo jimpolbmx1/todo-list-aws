@@ -30,6 +30,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.is_local = 'true'
         self.uuid = "123e4567-e89b-12d3-a456-426614174000"
         self.text = "Aprender DevOps y Cloud en la UNIR"
+        self.translate = boto3.client(service_name='translate',
+                         region_name='us-east-1',
+                         use_ssl=True)
 
         from src.todoList import create_todo_table
         self.table = create_todo_table(self.dynamodb)
