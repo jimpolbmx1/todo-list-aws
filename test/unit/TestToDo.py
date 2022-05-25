@@ -62,14 +62,14 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_translate_todo(self):
         print ('---------------------')
         print ('Start: test_translate_todo')
-        from src.getnew import getnew
+        from src.todoList import get_translate
         from src.todoList import put_item
         responsePut = put_item(self.text, self.dynamodb)
         print ('Response put_item:' + str(responsePut))
         idItem = json.loads(responsePut['body'])['id']
         print ('Id item:' + idItem)
         self.assertEqual(200, responsePut['statusCode'])
-        responseGet = getnew(
+        responseGet = get_translate(
                 idItem,'en',
                 self.dynamodb)
         print ('Response Get:' + str(responseGet))
