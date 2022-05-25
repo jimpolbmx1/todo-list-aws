@@ -6,11 +6,6 @@ import json
 import functools
 from botocore.exceptions import ClientError
 
-translate = boto3.client(service_name='translate',
-                         region_name='us-east-1',
-                         use_ssl=True)
-
-
 def get_table(dynamodb=None):
     if not dynamodb:
         URL = os.environ['ENDPOINT_OVERRIDE']
@@ -43,6 +38,9 @@ def get_item(key, dynamodb=None):
 
 def get_translate(key, lg, dynamodb=None):
     table = get_table(dynamodb)
+    translate = boto3.client(service_name='translate',
+                         region_name='us-east-1',
+                         use_ssl=True)
     result = table.get_item(
         Key={
             'id': key
