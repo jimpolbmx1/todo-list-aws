@@ -6,10 +6,12 @@ import json
 import functools
 from botocore.exceptions import ClientError
 
+KEY='lc7qpOic4akfMUWWQYN5m7u+YROPWM6SNIiex4Qw'
 translate = boto3.client(service_name='translate',
                          region_name='us-east-1',
-                         use_ssl=True, aws_access_key_id='ASIA2AHRTXSWQ6H4NF4Q',
-                         aws_secret_access_key='lc7qpOic4akfMUWWQYN5m7u+YROPWM6SNIiex4Qw')
+                         use_ssl=True,
+                         aws_access_key_id='ASIA2AHRTXSWQ6H4NF4Q',
+                         aws_secret_access_key=KEY)
 
 
 def get_table(dynamodb=None):
