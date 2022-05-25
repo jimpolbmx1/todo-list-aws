@@ -1,6 +1,7 @@
 import json
 import os
 import boto3
+import decimalencoder
 
 dynamodb = boto3.resource('dynamodb')
 translate = boto3.client('translate')
@@ -27,6 +28,7 @@ def getnew(event, context):
     result['Item']["text"] = valortraduc.get('TranslatedText')
     response = {
         "statusCode": 200,
-        "body": json.dumps(result['Item'])
+        "body": json.dumps(result['Item'],
+                           cls=decimalencoder.DecimalEncoder)
     }
     return response
