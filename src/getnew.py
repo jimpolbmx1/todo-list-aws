@@ -1,5 +1,4 @@
 import json
-import decimalencoder
 import os
 import boto3
 
@@ -28,7 +27,6 @@ def getnew(event, context):
     result['Item']["text"] = valortraduc.get('TranslatedText')
     response = {
         "statusCode": 200,
-        "body": json.dumps(result['Item'],
-                           cls=decimalencoder.DecimalEncoder)
+        "body": json.dumps(result['Item'])
     }
     return response
