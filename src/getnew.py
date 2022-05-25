@@ -1,5 +1,4 @@
 import json
-import os
 import boto3
 import decimalencoder
 import todoList
@@ -12,7 +11,7 @@ def getnew(event, context):
     # create a response
     leng = event['pathParameters']['lg']
     ID = event['pathParameters']['id']
-    item = todoList.get_translate(ID,leng)
+    item = todoList.get_translate(ID, leng)
     if item:
         response = {
             "statusCode": 200,
