@@ -58,7 +58,6 @@ def get_translate(key,lg, dynamodb=None):
     return result
 
 
-
 def get_items(dynamodb=None):
     table = get_table(dynamodb)
     # fetch todo from the database
