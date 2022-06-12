@@ -64,34 +64,14 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_translate_todo')
         from src.todoList import get_translate
         from src.todoList import put_item
-        from unittest.mock import Mock
-        from botocore.stub import Stubber
-        from botocore.stub import ANY
         responsePut = put_item(self.text, self.dynamodb)
         print ('Response put_item:' + str(responsePut))
         idItem = json.loads(responsePut['body'])['id']
         print ('Id item:' + idItem)
         self.assertEqual(200, responsePut['statusCode'])
-        #preparamos el Mock del cliente de translate
-        translate = boto3.client('translate', region_name='us-east-1')
-        stubberTranslate = Stubber(translate)
-        translateResponse = {
-            'TranslatedText': self.text,
-            'SourceLanguageCode': 'es',
-            'TargetLanguageCode': 'es'
-        }
-        
-        translateExpectedParams = {'Text':ANY,
-            "SourceLanguageCode":ANY,
-            "TargetLanguageCode":ANY}
-            
-        stubberTranslate.add_response('translate_text', translateResponse, translateExpectedParams)
-        stubberTranslate.activate()
-        with stubberTranslate:
-            responseGet = get_translate(
-                    idItem,'es',
-                    self.dynamodb, 
-                    translate)
+        responseGet = get_translate(
+                idItem,'en',
+                self.dynamodb)
         print ('Response Get:' + str(responseGet))
         self.assertEqual(
             self.text,
@@ -99,6 +79,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('End: test_translate_todo')
         
         
+
     def test_put_todo(self):
         print ('---------------------')
         print ('Start: test_put_todo')
