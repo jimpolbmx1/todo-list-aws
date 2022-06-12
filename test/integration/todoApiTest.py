@@ -128,6 +128,9 @@ class TestApi(unittest.TestCase):
         self.assertEqual(
             response.status_code, 200, "Error en la petición API a {url}"
         )
+        self.assertEqual(
+            json_response['text'], "Integration text example - GET", "Error en la petición API a {url}"
+        )
         #Test GET TODO
         url = BASE_URL+"/todos/"+ID_TODO+"/en"
         print('new URL:'+url)
@@ -137,12 +140,6 @@ class TestApi(unittest.TestCase):
         self.assertEqual(
             response.status_code, 200, "Error en la petición API a {url}"
         )
-        #Delete TODO to restore state
-        #response = requests.delete(url)
-        #self.assertEqual(
-        #    response.status_code, 200, "Error en la petición API a {url}"
-        #)
-        print("Este es el error:"+ str(response.status_code))
         print('End - integration test Gettranslate TODO')
     def test_api_updatetodo(self):
         print('---------------------------------------')
