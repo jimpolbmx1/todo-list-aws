@@ -133,7 +133,7 @@ class TestApi(unittest.TestCase):
             jsonbody['text'], "Integration text example - GET", "Error en la petición API a {url}"
         )
         #Test GET TODO
-        url = BASE_URL+"/todos/"+ID_TODO+leng
+        url = BASE_URL+"/todos/"+ID_TODO
         response = requests.get(url)
         json_response = response.json()
         print('Response Get Todo: '+ str(json_response))
