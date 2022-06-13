@@ -29,7 +29,7 @@ def get_item(key, dynamodb=None):
                 'id': key
             }
         )
-    except ClientError as e:
+    except ClientError as e:    # pragma: no cover
         print(e.response['Error']['Message'])
     else:
         print('Result getItem:'+str(result))
@@ -37,11 +37,12 @@ def get_item(key, dynamodb=None):
             return result['Item']
 
 
-def get_translate(key, lg, dynamodb=None):
+def get_translate(key, lg, dynamodb=None, translate=None):
     table = get_table(dynamodb)
-    translate = boto3.client(service_name='translate',
-                             region_name='us-east-1',
-                             use_ssl=True)
+    if not translate:
+        translate = boto3.client(service_name='translate',
+                                 region_name='us-east-1',
+                                 use_ssl=True)
     result = table.get_item(
         Key={
             'id': key
@@ -132,7 +133,7 @@ def delete_item(key, dynamodb=None):
             }
         )
 
-    except ClientError as e:
+    except ClientError as e:    # pragma: no cover
         print(e.response['Error']['Message'])
     else:
         return
