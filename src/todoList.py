@@ -58,7 +58,7 @@ def get_translate(key, lg, dynamodb=None, translate=None):
                                            TargetLanguageCode=target)
     print(valortraduc)
     result['Item']["text"] = valortraduc.get('TranslatedText')
-    return result['Item']
+    return result['Item']["text"]
 
 
 def get_items(dynamodb=None):
