@@ -60,6 +60,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         #self.assertIn('todoTable', self.table_local.name)
         print ('End: test_table_exists')
         
+        
     def test_translate_todo(self):
         print ('---------------------')
         print ('Start: test_translate_todo')
@@ -84,20 +85,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         stubberTranslate.activate()
         responsePut = put_item(self.text, self.dynamodb)
         idItem = json.loads(responsePut['body'])['id']
-        print ('Id item:' + idItem)
-        
         with stubberTranslate:
             result = get_translate(idItem,'en',self.dynamodb, translate)
-            print(result)
-
             self.assertEqual(result, self.expectedTranslation)
-    
-            print ('End: test_translate_todo')
+        print ('End: test_translate_todo')
         
        
-        
-        
-
     def test_put_todo(self):
         print ('---------------------')
         print ('Start: test_put_todo')
@@ -194,7 +187,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             Exception,
             update_item(
                 updated_text,
-                "",
+                '',
                 "false",
                 self.dynamodb))
         self.assertRaises(
@@ -211,6 +204,8 @@ class TestDatabaseFunctions(unittest.TestCase):
                 self.uuid,
                 "",
                 self.dynamodb))
+        response = update_item("", self.uuid, "false", self.dynamodb)
+        print(response)
         print ('End: atest_update_todo_error')
 
     def test_delete_todo(self):
