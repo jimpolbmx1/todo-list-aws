@@ -88,6 +88,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         
         with stubberTranslate:
             result = get_translate(idItem,'es',self.dynamodb, translate)
+            print(result)
 
             self.assertEqual(result, self.expectedTranslation)
     
