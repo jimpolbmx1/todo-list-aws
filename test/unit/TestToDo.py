@@ -30,6 +30,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.is_local = 'true'
         self.uuid = "123e4567-e89b-12d3-a456-426614174000"
         self.text = "Aprender DevOps y Cloud en la UNIR"
+        self.expectedTranslation = "Aprender DevOps y Cloud en la UNIR" 
 
         from src.todoList import create_todo_table
         self.table = create_todo_table(self.dynamodb)
@@ -64,19 +65,32 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_translate_todo')
         from src.todoList import get_translate
         from src.todoList import put_item
+        from unittest.mock import Mock
+        from botocore.stub import ANY
+        from botocore.stub import Stubber
+        #preparamos el Mock del cliente de translate
+        translate = boto3.client('translate', region_name='us-east-1')
+        stubberTranslate = Stubber(translate)
+        translateResponse = {
+            'TranslatedText': self.expectedTranslation,
+            'SourceLanguageCode': 'es',
+            'TargetLanguageCode': 'es'
+        }
+        translateExpectedParams = {'Text':ANY,
+            "SourceLanguageCode":ANY,
+            "TargetLanguageCode":ANY}
+            
+        stubberTranslate.add_response('translate_text', translateResponse, translateExpectedParams)
+        stubberTranslate.activate()
         responsePut = put_item(self.text, self.dynamodb)
-        print ('Response put_item:' + str(responsePut))
-        idItem = json.loads(responsePut['body'])['id']
-        print ('Id item:' + idItem)
-        self.assertEqual(200, responsePut['statusCode'])
-        responseGet = get_translate(
-                idItem,'en',
-                self.dynamodb)
-        print ('Response Get:' + str(responseGet))
-        self.assertEqual(
-            self.text,
-            responseGet['text'])
-        print ('End: test_translate_todo')
+        with stubberTranslate:
+            result = (self.text, "en", translate)
+
+            self.assertEqual(result, self.expectedTranslation)
+    
+            print ('End: test_translate_to_language_todo')
+        
+       
         
         
 
