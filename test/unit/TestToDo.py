@@ -92,7 +92,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
             self.assertEqual(result, self.expectedTranslation)
     
-            print ('End: test_translate_to_language_todo')
+            print ('End: test_translate_todo')
         
        
         
