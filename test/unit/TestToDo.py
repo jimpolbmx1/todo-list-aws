@@ -30,7 +30,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.is_local = 'true'
         self.uuid = "123e4567-e89b-12d3-a456-426614174000"
         self.text = "Aprender DevOps y Cloud en la UNIR"
-        self.expectedTranslation = "Aprender DevOps y Cloud en la UNIR" 
+        self.expectedTranslation = "Learn DevOps and Cloud at UNIR" 
 
         from src.todoList import create_todo_table
         self.table = create_todo_table(self.dynamodb)
@@ -74,7 +74,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         translateResponse = {
             'TranslatedText': self.expectedTranslation,
             'SourceLanguageCode': 'es',
-            'TargetLanguageCode': 'es'
+            'TargetLanguageCode': 'en'
         }
         translateExpectedParams = {'Text':ANY,
             "SourceLanguageCode":ANY,
@@ -87,7 +87,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Id item:' + idItem)
         
         with stubberTranslate:
-            result = get_translate(idItem,'es',self.dynamodb, translate)
+            result = get_translate(idItem,'en',self.dynamodb, translate)
             print(result)
 
             self.assertEqual(result, self.expectedTranslation)
