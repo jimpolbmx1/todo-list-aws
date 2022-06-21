@@ -84,7 +84,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         stubberTranslate.activate()
         responsePut = put_item(self.text, self.dynamodb)
         with stubberTranslate:
-            result = (self.text, "es", translate)
+            result = (self.text, translate)
 
             self.assertEqual(result, self.expectedTranslation)
     
