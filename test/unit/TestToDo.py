@@ -230,7 +230,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         self.table = Mock()
         self.table.delete_item.side_effect = Exception('Boto3 Exception')
-        self.assertRaises('Boto3 Exception', delete_item("", self.dynamodb))
+        self.assertRaises(Exception('Boto3 Exception'), delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
     
     def test_get_table(self):
