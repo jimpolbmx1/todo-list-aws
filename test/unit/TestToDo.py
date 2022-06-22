@@ -228,7 +228,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_delete_todo_error')
         from src.todoList import delete_item
         # Testing file functions
-        self.table.delete_item.side_effect = Exception('Boto3 Exception')
+        self.dynamodb.delete_item.side_effect = Exception('Boto3 Exception')
         self.assertRaises('Boto3 Exception', delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
     
