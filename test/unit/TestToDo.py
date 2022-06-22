@@ -228,7 +228,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import delete_item
         # Testing file functions
         self.side_effect = Exception('Test')
-        delete_item("", self.dynamodb)
+        delete_item.side_effect("", self.dynamodb)
         print ('End: test_delete_todo_error')
     
     def test_get_table(self):
