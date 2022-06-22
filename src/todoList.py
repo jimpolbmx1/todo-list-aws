@@ -133,7 +133,7 @@ def delete_item(key, dynamodb=None):
             }
         )
 
-    except ClientError as e:    # pragma: no cover
+    except ClientError as e:
         print(e.response['Error']['Message'])
     else:
         return

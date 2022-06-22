@@ -31,7 +31,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.uuid = "123e4567-e89b-12d3-a456-426614174000"
         self.text = "Aprender DevOps y Cloud en la UNIR"
         self.expectedTranslation = "Learn DevOps and Cloud at UNIR" 
-
         from src.todoList import create_todo_table
         self.table = create_todo_table(self.dynamodb)
         #self.table_local = create_todo_table()
@@ -204,8 +203,6 @@ class TestDatabaseFunctions(unittest.TestCase):
                 self.uuid,
                 "",
                 self.dynamodb))
-        response = update_item("", self.uuid, "false", self.dynamodb)
-        print(response)
         print ('End: atest_update_todo_error')
 
     def test_delete_todo(self):
@@ -230,7 +227,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_delete_todo_error')
         from src.todoList import delete_item
         # Testing file functions
-        self.assertRaises(TypeError, delete_item("", self.dynamodb))
+        with self.assertRaises(TypeError):
+            delete_item("", self.dynamodb)
         print ('End: test_delete_todo_error')
     
     def test_get_table(self):
