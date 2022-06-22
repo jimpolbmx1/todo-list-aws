@@ -231,8 +231,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.table = table = Mock()
         table.delete_item.side_effect = Exception('Boto3 Exception')
         with self.assertRaises(Exception) as exc:
-            delete_item("", self.dynamodb)
+            result=delete_item("", self.dynamodb)
             self.assertTrue('Boto3 Exception' in exc.exception)
+        print (result)
         print ('End: test_delete_todo_error')
     
     def test_get_table(self):

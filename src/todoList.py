@@ -135,8 +135,10 @@ def delete_item(key, dynamodb=None):
 
     except ClientError as e:
         print(e.response['Error']['Message'])
+        error_message=e.response['Error']['Message']
+        return error_message
     else:
-        return
+        return 'Sucess'
 
 
 def create_todo_table(dynamodb):
