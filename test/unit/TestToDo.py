@@ -2,6 +2,7 @@
 # coding=utf-8
 import warnings
 import unittest
+from unittest.mock import Mock
 import boto3
 from moto import mock_dynamodb2
 import sys
@@ -227,8 +228,10 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_delete_todo_error')
         from src.todoList import delete_item
         # Testing file functions
-        self.side_effect = Exception('Test')
-        delete_item.side_effect("", self.dynamodb)
+        self.table = table = Mock()
+        table.delete_item.side_effect = Exception('Boto3 Exception')
+        with self.assertRaises(Exception) as exc:
+            self.assertRaises('Boto3 Exception', delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
     
     def test_get_table(self):
